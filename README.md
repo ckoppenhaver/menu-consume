@@ -1,0 +1,1 @@
+This is a jQuery plugin to move overflow menu items into a dropdown. This works also when the browser is resized and on load. This plugin also works in IE8 as long as the menu is horizontal and styled. If it is not the plugin has a bail out feature to prevent browser lockup.
