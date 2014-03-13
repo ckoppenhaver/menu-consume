@@ -12,8 +12,9 @@
     var settings = $.extend({
       self: $(this),
       breakPoint: '768',
-      horizontalOffsets: '',
-      dropDownClass: '.main-nav__menu-item.menuConsume-more',
+      horizontalOffsets: new Array(),
+      dropDownClass: '.menuConsume-more',
+      menuItemText: 'More'
     }, options);
 
     //Initialize the default variables
@@ -23,9 +24,9 @@
     var headerWidth = $(settings.self).parent().width();
     var wait;
     //Timer to prevent over running checking functions and keep CPU ussuage down
-      //Check for if the browser is new enough that it would support media queries
-      //If the browser does not the respond.js plugin takes a second to load up media queries and this plugin only sees the mobile version of the site
-      //until the page is resized.
+    //Check for if the browser is new enough that it would support media queries
+    //If the browser does not the respond.js plugin takes a second to load up media queries and this plugin only sees the mobile version of the site
+    //until the page is resized.
 
     //The width of settings.horizontalOffsets widths combined
     var offSetWidth = 0;
@@ -77,7 +78,7 @@
       if($(settings.dropDownClass).length === 0 && (menuWidth + offSetWidth) >= headerWidth) {
         //Check if our More drop down contains any items and if the menu width
         // of our menu plus offsets are wider than the header region
-        $(settings.self).append('<li class="' + settings.dropDownClass.replace(/\./g,' ') + ' has-dropdown"><a href="#">More</a><ul></ul></li>');
+        $(settings.self).append('<li class="' + settings.dropDownClass.replace(/\./g,' ') + '"><a href="#">' + settings.menuItemText + '</a><ul></ul></li>');
         $(settings.dropDownClass + ' ul').css('position', 'absolute');
       }
 
@@ -91,18 +92,18 @@
         //The menu is to wide so we dump menu items into the drop down
         menuItemRemove();
         $(settings.dropDownClass).css('visibility', 'visible');
-        jQuery(document).trigger('menu_consumed', true);
+        $(document).trigger('menu_consumed', true);
       }
       else if((menuWidth + offSetWidth) <= headerWidth && $(settings.dropDownClass).length !== 0) {
         //The menu is smaller so we try putting items back into the main menu
         menuItemAdd();
         $(settings.dropDownClass).css('visibility', 'visible');
-        jQuery(document).trigger('menu_consumed', true);
+        $(document).trigger('menu_consumed', true);
       }
       if($(settings.dropDownClass + ' ul').children().length <= 0) {
         //If things are in order we remove the More dropdown
         $(settings.dropDownClass).remove();
-        jQuery(document).trigger('menu_consumed', true);
+        $(document).trigger('menu_consumed', true);
       }
 
     }
@@ -133,6 +134,7 @@
       lastChild,
       dropDownClasses,
       hasClass = false,
+      //The bailout var is used to prevent an infinite loop that will lock browsers up
       bailOut = 0;
 
       $('.menuConsume-more > ul').css('visibility', 'visible');
