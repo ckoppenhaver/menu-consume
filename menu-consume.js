@@ -4,6 +4,7 @@
  * horizontalOffsets: Other items in the navigation area that the menu needs to
  *  sit next to. This params accepts an array of the class/ID names
  * dropDownClass: The class name(s) of the More drop down that nav items are placed into
+ * menuItemText: Override the menu item text where items are placed
  */
 (function ($) {
   $.fn.menuConsume = function(options) {
