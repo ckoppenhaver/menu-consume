@@ -5,9 +5,11 @@ This is a plugin to move overflowing menu items into a dropdown to keep the menu
 
 ### Overrides:
 #### Defaults:
-```breakPoint: '768',
+```
+breakPoint: '768',
 horizontalOffsets: '',
-dropDownClass: '.main-nav__menu-item.menuConsume-more',```
+dropDownClass: '.main-nav__menu-item.menuConsume-more'
+```
 
 #### Breakpoint: 
 If the browser goes below this point all menu items are moved out of the dropdown and those items are then able to respond to any other mobile plugins or styles. If you would like to disable this feature override this value with 0.
