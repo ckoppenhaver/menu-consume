@@ -1,0 +1,36 @@
+{
+    "name": "menu-consume",
+    "title": "Menu Consume",
+    "description": "A jQuery plugin to move overflowing menu items into a dropdown menu item that works also in a reponsive enviroment",
+    "keywords": [
+        "menu",
+        "menu items",
+        "overflow",
+        "consume",
+    ],
+    "version": "0.0.1",
+    "author": {
+        "name": "Courtney Koppenhaver",
+        "url": "http://ckoppenhaver.com"
+    },
+    "maintainers": [
+        {
+            "name": "Courtney Koppenhaver",
+            "email": "ckoppenhaver@gmail.com",
+            "url": "http://ckoppenhaver.com"
+        }
+    ],
+    "licenses": [
+        {
+            "type": "MIT",
+            "url": "https://github.com/ckoppenhaver/menu-consume/blob/master/LICENSE.md"
+        }
+    ],
+    "bugs": "https://github.com/ckoppenhaver/menu-consume/issues",
+    "homepage": "https://github.com/ckoppenhaver/menu-consume/",
+    "docs": "https://github.com/ckoppenhaver/menu-consume/",
+    "download": "https://github.com/ckoppenhaver/menu-consume/",
+    "dependencies": {
+        "jquery": ">=1.7"
+    }
+}
