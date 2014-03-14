@@ -6,6 +6,7 @@
  * dropDownClass: The class name(s) of the More drop down that nav items are placed into
  * menuItemText: Override the menu item text where items are placed
  */
+
 (function ($) {
   $.fn.menuConsume = function(options) {
 
@@ -32,7 +33,7 @@
     //The width of settings.horizontalOffsets widths combined
     var offSetWidth = 0;
 
-    //This fixes IE
+    //Initialize the setTimeout to fix IE8
     if($('html').hasClass('no-rgba')) {
           //Check for if the browser is new enough that it would support media queries
           //If the browser does not the respond.js plugin takes a second to load up media queries and this plugin only sees the mobile version of the site
@@ -53,6 +54,7 @@
         //Clear out our time to reset it
         clearTimeout(wait);
         if($(window).outerWidth(true) > settings.breakPoint) {
+          // The class no-rgba is a class provided from the modernizr plugin which will check what the browser supports
           if($('html').hasClass('no-rgba')) {
             wait = setTimeout(function(){
               menuMore();
@@ -73,6 +75,7 @@
     function menuMore() {
       //Clear out the offSetWidth to recalculate the offset widths
       offSetWidth = 0;
+      // Loop through our horizontal offsets
       for(var t = 0; t < settings.horizontalOffsets.length; t++) {
         offSetWidth += $(settings.horizontalOffsets[t]).outerWidth(true);
       }
@@ -172,6 +175,8 @@
     function menuItemAdd() {
       //Here we are moving items from the dropdown menu back into the targeted menu
       var childCount;
+
+      //We loop through the drop down until the maximum width is reached.
       while ((menuWidth + offSetWidth) <= headerWidth && $(settings.dropDownClass + ' ul').children().length > 0) {
         if($(settings.dropDownClass + ' > ul').children().length >= 1){
           var firstChild = $(settings.dropDownClass + ' ul').children()[0];
@@ -189,7 +194,7 @@
           }
           else {
             $(settings.self).append($(settings.dropDownClass));
-            menuWidth = settings.self.outerWidth(true);
+            menuWidth = $(settings.self).outerWidth(true);
             headerWidth = $(settings.self).parent().width();
             //Removes the More drop down
             if($(settings.dropDownClass + ' > ul').children().length === 0) {
