@@ -26,3 +26,6 @@ By default the menu item that over items are placed in is 'More'. This is overid
 
 ### Triggers
 After the plugin runs it fires off an event trigger to allow other plugin to tie into it and fire other events. The trigger is done after window resize and uses timeouts to prevent rapid firing and help keep browser performance intact. 
+
+### Notes
+Be sure that your menu list is a fluid width otherwise the plugin will think your menu still needs to shink and all of your menu items will be in the more dropdown.
