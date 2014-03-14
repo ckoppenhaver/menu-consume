@@ -4,9 +4,9 @@
     "description": "A jQuery plugin to move overflowing menu items into a dropdown menu item that works also in a reponsive enviroment",
     "keywords": [
         "menu",
-        "menu items",
         "overflow",
         "consume",
+        "responsive"
     ],
     "version": "0.0.1",
     "author": {
