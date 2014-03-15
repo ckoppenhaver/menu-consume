@@ -6,9 +6,11 @@
         "menu",
         "overflow",
         "consume",
-        "responsive"
+        "responsive",
+        "utility",
+        "ui"
     ],
-    "version": "0.0.1",
+    "version": "0.0.2",
     "author": {
         "name": "Courtney Koppenhaver",
         "url": "http://ckoppenhaver.com"
