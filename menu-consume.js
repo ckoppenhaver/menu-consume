@@ -51,37 +51,26 @@
         menuWidth = settings.self.outerWidth(true);
         //Refreshing our header region width
         headerWidth = $(settings.self).parent().width();
+        //Timer Delay
+        var timerDelay = 500;
+        // The class no-rgba is a class provided from the modernizr plugin which will check what the browser supports
+        if($('html').hasClass('no-rgba')) {
+          timerDelay = 1000;
+        }
         //Clear out our time to reset it
         clearTimeout(wait);
         if($(window).outerWidth(true) > settings.breakPoint) {
-          // The class no-rgba is a class provided from the modernizr plugin which will check what the browser supports
-          if($('html').hasClass('no-rgba')) {
             wait = setTimeout(function(){
               menuMore();
-            }, 1000);
-          } else {
-            wait = setTimeout(function(){
-              menuMore();
-            }, 500);
-          }
+            }, timerDelay);
         }else {
-          if($('html').hasClass('no-rgba')) {
               wait = setTimeout(function(){
                 jQuery(document).trigger('menu_consumed', true);
                 if($(settings.dropDownClass)[0]) {
                   menuMobileRelocate();
                   $(settings.dropDownClass).css('visibility', 'visible');
                 }
-              }, 1000);
-            } else {
-              wait = setTimeout(function(){
-                jQuery(document).trigger('menu_consumed', true);
-                if($(settings.dropDownClass)[0]) {
-                  menuMobileRelocate();
-                  $(settings.dropDownClass).css('visibility', 'visible');
-                }
-              }, 500);
-            }
+              }, timerDelay);
         }
     }).resize();
 
