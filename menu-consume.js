@@ -65,10 +65,23 @@
             }, 500);
           }
         }else {
-          if($(settings.dropDownClass)[0]) {
-            menuMobileRelocate();
-            $(settings.dropDownClass).css('visibility', 'visible');
-          }
+          if($('html').hasClass('no-rgba')) {
+              wait = setTimeout(function(){
+                jQuery(document).trigger('menu_consumed', true);
+                if($(settings.dropDownClass)[0]) {
+                  menuMobileRelocate();
+                  $(settings.dropDownClass).css('visibility', 'visible');
+                }
+              }, 1000);
+            } else {
+              wait = setTimeout(function(){
+                jQuery(document).trigger('menu_consumed', true);
+                if($(settings.dropDownClass)[0]) {
+                  menuMobileRelocate();
+                  $(settings.dropDownClass).css('visibility', 'visible');
+                }
+              }, 500);
+            }
         }
     }).resize();
 
