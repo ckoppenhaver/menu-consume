@@ -8,7 +8,7 @@
  */
 
 (function ($) {
-  $.fn.menuConsume = function(options) {
+  $.fn.menuConsume = function (options) {
 
     //Default Options
     var settings = $.extend({
@@ -24,7 +24,7 @@
     var menuWidth = $(settings.self).outerWidth(true);
     //Width of the header region
     var headerWidth = $(settings.self).parent().width();
-    var wait;
+
     //Timer to prevent over running checking functions and keep CPU ussuage down
     //Check for if the browser is new enough that it would support media queries
     //If the browser does not the respond.js plugin takes a second to load up media queries and this plugin only sees the mobile version of the site
@@ -33,58 +33,46 @@
     //The width of settings.horizontalOffsets widths combined
     var offSetWidth = 0;
 
-    //Initialize the setTimeout to fix IE8
-    if($('html').hasClass('no-rgba')) {
-          //Check for if the browser is new enough that it would support media queries
-          //If the browser does not the respond.js plugin takes a second to load up media queries and this plugin only sees the mobile version of the site
-          //until the page is resized.
-          var wait = setTimeout(menuMore, 1000);
-        } else {
-          //For modern browsers
-          var wait = setTimeout(menuMore, 100);
-        }
+    var wait = setTimeout(menuMore, 100);
 
-    $(window).resize(function(){
+    $(window).resize(function () {
       //We are preventing our functions from firing rapidly on the page reload.
 
-        //Refreshing our menu Width
-        menuWidth = settings.self.outerWidth(true);
-        //Refreshing our header region width
-        headerWidth = $(settings.self).parent().width();
-        //Timer Delay
-        var timerDelay = 500;
-        // The class no-rgba is a class provided from the modernizr plugin which will check what the browser supports
-        if($('html').hasClass('no-rgba')) {
-          timerDelay = 1000;
-        }
-        //Clear out our time to reset it
-        clearTimeout(wait);
-        if($(window).outerWidth(true) > settings.breakPoint) {
-            wait = setTimeout(function(){
-              menuMore();
-            }, timerDelay);
-        }else {
-              wait = setTimeout(function(){
-                jQuery(document).trigger('menu_consumed', true);
-                if($(settings.dropDownClass)[0]) {
-                  menuMobileRelocate();
-                  $(settings.dropDownClass).css('visibility', 'visible');
-                }
-              }, timerDelay);
-        }
+      //Refreshing our menu Width
+      menuWidth = settings.self.outerWidth(true);
+      //Refreshing our header region width
+      headerWidth = $(settings.self).parent().width();
+      //Timer Delay
+      var timerDelay = 500;
+
+      //Clear out our time to reset it
+      clearTimeout(wait);
+      if ($(window).outerWidth(true) > settings.breakPoint) {
+        wait = setTimeout(function () {
+          menuMore();
+        }, timerDelay);
+      } else {
+        wait = setTimeout(function () {
+          jQuery(document).trigger('menu_consumed', true);
+          if ($(settings.dropDownClass)[0]) {
+            menuMobileRelocate();
+            $(settings.dropDownClass).css('visibility', 'visible');
+          }
+        }, timerDelay);
+      }
     }).resize();
 
     function menuMore() {
       //Clear out the offSetWidth to recalculate the offset widths
       offSetWidth = 0;
       // Loop through our horizontal offsets
-      for(var t = 0; t < settings.horizontalOffsets.length; t++) {
+      for (var t = 0; t < settings.horizontalOffsets.length; t++) {
         offSetWidth += $(settings.horizontalOffsets[t]).outerWidth(true);
       }
-      if($(settings.dropDownClass).length === 0 && (menuWidth + offSetWidth) >= headerWidth) {
+      if ($(settings.dropDownClass).length === 0 && (menuWidth + offSetWidth) >= headerWidth) {
         //Check if our More drop down contains any items and if the menu width
         // of our menu plus offsets are wider than the header region
-        $(settings.self).append('<li class="' + settings.dropDownClass.replace(/\./g,' ') + '"><a href="#">' + settings.menuItemText + '</a><ul></ul></li>');
+        $(settings.self).append('<li class="' + settings.dropDownClass.replace(/\./g, ' ') + '"><a href="#">' + settings.menuItemText + '</a><ul></ul></li>');
         $(settings.dropDownClass + ' ul').css('position', 'absolute');
       }
 
@@ -94,19 +82,19 @@
         menuMobileRelocate();
         $(settings.dropDownClass).css('visibility', 'visible');
       }
-      else if((menuWidth + offSetWidth) >= headerWidth && $(settings.dropDownClass).length !== 0) {
+      else if ((menuWidth + offSetWidth) >= headerWidth && $(settings.dropDownClass).length !== 0) {
         //The menu is to wide so we dump menu items into the drop down
         menuItemRemove();
         $(settings.dropDownClass).css('visibility', 'visible');
         $(document).trigger('menu_consumed', true);
       }
-      else if((menuWidth + offSetWidth) <= headerWidth && $(settings.dropDownClass).length !== 0) {
+      else if ((menuWidth + offSetWidth) <= headerWidth && $(settings.dropDownClass).length !== 0) {
         //The menu is smaller so we try putting items back into the main menu
         menuItemAdd();
         $(settings.dropDownClass).css('visibility', 'visible');
         $(document).trigger('menu_consumed', true);
       }
-      if($(settings.dropDownClass + ' ul').children().length <= 0) {
+      if ($(settings.dropDownClass + ' ul').children().length <= 0) {
         //If things are in order we remove the More dropdown
         $(settings.dropDownClass).remove();
         $(document).trigger('menu_consumed', true);
@@ -119,14 +107,14 @@
       // of the Menu More Items back into the main navigation
       var firstChild;
       while ($(settings.dropDownClass + ' ul').children().length > 0) {
-        if($(settings.dropDownClass + ' ul').children().length >= 1){
+        if ($(settings.dropDownClass + ' ul').children().length >= 1) {
           firstChild = $(settings.dropDownClass + ' ul').children()[0];
           $(settings.self).append($(firstChild));
-          if($(settings.dropDownClass + ' ul').children().length === 0) {
+          if ($(settings.dropDownClass + ' ul').children().length === 0) {
             $(settings.dropDownClass).remove();
           }
 
-        }else {
+        } else {
           $(settings.dropDownClass).remove();
           break;
         }
@@ -137,11 +125,11 @@
       //Here we are moving items from the targeted menu into the dropdown menu
 
       var children,
-      lastChild,
-      dropDownClasses,
-      hasClass = false,
+        lastChild,
+        dropDownClasses,
+        hasClass = false,
       //The bailout var is used to prevent an infinite loop that will lock browsers up
-      bailOut = 0;
+        bailOut = 0;
 
       $('.menuConsume-more > ul').css('visibility', 'visible');
       while ((menuWidth + offSetWidth) >= headerWidth && bailOut < 300) {
@@ -149,19 +137,19 @@
         children = $(settings.self).children();
         lastChild = children.length - 2;
 
-        for(var i = (children.length - 1); i >= 0; i--) {
+        for (var i = (children.length - 1); i >= 0; i--) {
           dropDownClasses = settings.dropDownClass.split('.');
 
           //Loop through the classes placed on our drop down
-          for(var h = 1; h < dropDownClasses.length; h++) {
-            if($(children[i]).hasClass(dropDownClasses[h])) {
+          for (var h = 1; h < dropDownClasses.length; h++) {
+            if ($(children[i]).hasClass(dropDownClasses[h])) {
               hasClass = true;
-            }else {
+            } else {
               hasClass = false;
               break;
             }
           }
-          if($(children[i]).css('display') !== 'none' && hasClass !== true) {
+          if ($(children[i]).css('display') !== 'none' && hasClass !== true) {
             //If the children aren't hidden the browser locks up
             $(children[lastChild]).hide();
             $(settings.dropDownClass + ' > ul').prepend(children[i]);
@@ -180,17 +168,17 @@
 
       //We loop through the drop down until the maximum width is reached.
       while ((menuWidth + offSetWidth) <= headerWidth && $(settings.dropDownClass + ' ul').children().length > 0) {
-        if($(settings.dropDownClass + ' > ul').children().length >= 1){
+        if ($(settings.dropDownClass + ' > ul').children().length >= 1) {
           var firstChild = $(settings.dropDownClass + ' ul').children()[0];
 
           $(settings.self).append($(firstChild));
           childCount = $(settings.dropDownClass + ' > ul').children('li').length;
-          if(childCount === 0) {
+          if (childCount === 0) {
             $(settings.dropDownClass).remove();
           }
           menuWidth = settings.self.outerWidth(true);
           headerWidth = $(settings.self).parent().width();
-          if((menuWidth + offSetWidth) >= headerWidth) {
+          if ((menuWidth + offSetWidth) >= headerWidth) {
             $(settings.dropDownClass + ' > ul').prepend($(firstChild));
             break;
           }
@@ -199,11 +187,11 @@
             menuWidth = $(settings.self).outerWidth(true);
             headerWidth = $(settings.self).parent().width();
             //Removes the More drop down
-            if($(settings.dropDownClass + ' > ul').children().length === 0) {
+            if ($(settings.dropDownClass + ' > ul').children().length === 0) {
               $(settings.dropDownClass).remove();
             }
           }
-        }else {
+        } else {
           $(settings.dropDownClass).remove();
           menuWidth = settings.self.outerWidth(true);
           headerWidth = $(settings.self).parent().width();
